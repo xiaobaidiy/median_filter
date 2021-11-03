@@ -1,0 +1,5 @@
+
+#define VERSION_MAJOR "@test_mf_VERSION_MAJOR@"
+#define VERSION_MINOR "@test_mf_VERSION_MINOR@"
+
+#cmakedefine PRINT_VERSION
