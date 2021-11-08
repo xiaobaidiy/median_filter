@@ -19,7 +19,7 @@ MedianFilter<T>::MedianFilter(int data_num){
   _update_flag = 0;
   _buffer = new T[_data_num];
   memset((void *)_buffer, 0.0, sizeof(T) * _data_num);
-  _iter = 0;
+  _is_first_run = true;
 }
 
 template <typename T>
@@ -27,11 +27,23 @@ void MedianFilter<T>::setDataNum(int data_num) {
   delete[] _buffer;
   _buffer = new T[data_num];
   memset((void *)_buffer, 0.0, sizeof(T) * data_num);
+  _is_first_run = true;
 }
 
 template <typename T>
 void MedianFilter<T>::input(T input_value) {
-  _iter++;
+  if (_is_first_run)
+  {
+    for (int i = 0; i < _data_num; ++i)
+    {
+      _buffer[i] = input_value;
+    }
+    _med = input_value;
+    _head++;
+    _is_first_run = false;
+    return;
+  }
+
   if (_buffer[_head] < _med)
   {
     if (input_value <= _med)
@@ -134,6 +146,7 @@ int MedianFilter<T>::getDataNum(void) {
 template <typename T>
 void MedianFilter<T>::clear(void) {
   memset((void *)_buffer, 0.0, sizeof(T) * _data_num);
+  _is_first_run = true;
 }
 
 template <typename T>

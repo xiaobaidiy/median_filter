@@ -20,7 +20,6 @@ class MedianFilter {
   int _head;
   int _update_flag;
   bool _is_even;
-
-  int _iter;
+  bool _is_first_run;
 };
 #endif
